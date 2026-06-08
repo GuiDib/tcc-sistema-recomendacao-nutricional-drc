@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OntoDRC — Recomendações</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            color: #1a202c;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 { font-size: 1.3rem; }
+        .header a { color: white; text-decoration: none; font-size: 0.9rem; opacity: 0.85; }
+        .header a:hover { opacity: 1; }
+
+        .container {
+            max-width: 900px;
+            margin: 1.5rem auto;
+            padding: 0 1rem;
+        }
+
+        .perfil-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+        }
+
+        .perfil-card h2 {
+            font-size: 1.1rem;
+            color: #2c5282;
+            margin-bottom: 0.8rem;
+        }
+
+        .perfil-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 0.8rem;
+        }
+
+        .perfil-item {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 0.7rem;
+        }
+
+        .perfil-item .label { font-size: 0.75rem; color: #a0aec0; text-transform: uppercase; }
+        .perfil-item .value { font-size: 1.1rem; font-weight: 700; color: #2d3748; }
+
+        .estagio-badge {
+            display: inline-block;
+            background: #2c5282;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .restricoes {
+            background: #ebf8ff;
+            border-radius: 8px;
+            padding: 0.8rem;
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            color: #2a4365;
+        }
+
+        .restricoes strong { display: block; margin-bottom: 0.3rem; }
+
+        .resumo {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .resumo-item {
+            background: white;
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .resumo-item .num { font-size: 2rem; font-weight: 800; }
+        .resumo-item .desc { font-size: 0.8rem; color: #718096; }
+        .resumo-item.permitido .num { color: #276749; }
+        .resumo-item.restrito .num { color: #c05621; }
+        .resumo-item.proibido .num { color: #9b2c2c; }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+        }
+
+        .section h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .section h3.permitido { color: #276749; border-color: #c6f6d5; }
+        .section h3.restrito { color: #c05621; border-color: #feebc8; }
+        .section h3.proibido { color: #9b2c2c; border-color: #fed7d7; }
+
+        .alimento {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #f7fafc;
+        }
+
+        .alimento:last-child { border-bottom: none; }
+
+        .alimento-nome {
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .alimento-cat {
+            font-size: 0.78rem;
+            color: #a0aec0;
+        }
+
+        .alimento-motivo {
+            font-size: 0.8rem;
+            color: #718096;
+            text-align: right;
+            max-width: 55%;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-permitido { background: #c6f6d5; color: #276749; }
+        .badge-restrito { background: #feebc8; color: #c05621; }
+        .badge-proibido { background: #fed7d7; color: #9b2c2c; }
+
+        .alertas {
+            background: #fffbeb;
+            border-left: 4px solid #d69e2e;
+            border-radius: 0 12px 12px 0;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .alertas h3 { color: #744210; margin-bottom: 0.5rem; font-size: 1rem; border: none; padding: 0; }
+        .alertas ul { padding-left: 1.2rem; }
+        .alertas li { font-size: 0.88rem; color: #744210; margin-bottom: 0.3rem; }
+
+        .aviso-legal {
+            background: #ebf8ff;
+            border-left: 4px solid #3182ce;
+            border-radius: 0 12px 12px 0;
+            padding: 1rem 1.2rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.88rem;
+            color: #2a4365;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.8rem;
+            color: #a0aec0;
+        }
+
+        .voltar-btn {
+            display: inline-block;
+            background: #edf2f7;
+            color: #4a5568;
+            padding: 0.6rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .voltar-btn:hover { background: #e2e8f0; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>OntoDRC — Recomendações</h1>
+        <a href="/">Nova consulta</a>
+    </div>
+
+    <div class="container">
+
+        <!-- PERFIL DO PACIENTE -->
+        <div class="perfil-card">
+            <h2>{{ r.paciente.nome }}</h2>
+            <div class="perfil-grid">
+                <div class="perfil-item">
+                    <div class="label">Idade</div>
+                    <div class="value">{{ r.paciente.idade }} anos</div>
+                </div>
+                <div class="perfil-item">
+                    <div class="label">Peso</div>
+                    <div class="value">{{ r.paciente.peso }} kg</div>
+                </div>
+                <div class="perfil-item">
+                    <div class="label">TFG</div>
+                    <div class="value">{{ r.paciente.tfg }} mL/min</div>
+                </div>
+                <div class="perfil-item">
+                    <div class="label">Estágio DRC</div>
+                    <div class="value"><span class="estagio-badge">{{ r.estagio.estagio }}</span></div>
+                </div>
+                <div class="perfil-item">
+                    <div class="label">Diálise</div>
+                    <div class="value">{{ "Sim" if r.paciente.em_dialise else "Não" }}</div>
+                </div>
+                <div class="perfil-item">
+                    <div class="label">Diabetes</div>
+                    <div class="value">{{ "Sim" if r.paciente.diabetes else "Não" }}</div>
+                </div>
+                <div class="perfil-item">
+                    <div class="label">Hipertensão</div>
+                    <div class="value">{{ "Sim" if r.paciente.hipertensao else "Não" }}</div>
+                </div>
+            </div>
+
+            <div class="restricoes">
+                <strong>Restrições do estágio {{ r.estagio.estagio }} — {{ r.estagio.descricao }}</strong>
+                {% if r.restricoes.potassio_mg %}Potássio: ≤ {{ r.restricoes.potassio_mg|int }} mg/dia · {% endif %}
+                {% if r.restricoes.sodio_mg %}Sódio: ≤ {{ r.restricoes.sodio_mg|int }} mg/dia · {% endif %}
+                {% if r.restricoes.fosforo_mg %}Fósforo: ≤ {{ r.restricoes.fosforo_mg|int }} mg/dia · {% endif %}
+                {% if r.restricoes.proteina_gkg %}Proteína: ≤ {{ r.restricoes.proteina_gkg }} g/kg/dia · {% endif %}
+                {% if r.restricoes.liquido_ml %}Líquidos: ≤ {{ r.restricoes.liquido_ml|int }} mL/dia{% endif %}
+                {% if not r.restricoes.potassio_mg and not r.restricoes.sodio_mg and not r.restricoes.fosforo_mg %}
+                Sem restrições específicas cadastradas para este estágio.
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- RESUMO -->
+        <div class="resumo">
+            <div class="resumo-item permitido">
+                <div class="num">{{ r.permitidos|length }}</div>
+                <div class="desc">Permitidos</div>
+            </div>
+            <div class="resumo-item restrito">
+                <div class="num">{{ r.restritos|length }}</div>
+                <div class="desc">Restritos</div>
+            </div>
+            <div class="resumo-item proibido">
+                <div class="num">{{ r.proibidos|length }}</div>
+                <div class="desc">Proibidos</div>
+            </div>
+        </div>
+
+        <!-- ALERTAS -->
+        {% if r.alertas %}
+        <div class="alertas">
+            <h3>Alertas Clínicos</h3>
+            <ul>
+                {% for alerta in r.alertas %}
+                <li>{{ alerta }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <!-- AVISO LEGAL -->
+        <div class="aviso-legal">
+            <strong>⚕️ {{ r.aviso_legal }}</strong>
+        </div>
+
+        <!-- PERMITIDOS -->
+        <div class="section">
+            <h3 class="permitido">✅ Permitidos ({{ r.permitidos|length }})</h3>
+            {% for a in r.permitidos %}
+            <div class="alimento">
+                <div>
+                    <span class="alimento-nome">{{ a.nome }}</span>
+                    <span class="alimento-cat">{{ a.categoria }}</span>
+                </div>
+                <span class="badge badge-permitido">Permitido</span>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- RESTRITOS -->
+        <div class="section">
+            <h3 class="restrito">⚠️ Restritos ({{ r.restritos|length }})</h3>
+            {% for a in r.restritos %}
+            <div class="alimento">
+                <div>
+                    <span class="alimento-nome">{{ a.nome }}</span>
+                    <span class="alimento-cat">{{ a.categoria }}</span>
+                </div>
+                <div class="alimento-motivo">
+                    {% for m in a.motivos %}
+                    {{ m.nutriente }}: {{ m.valor|int }}mg/100g (limite: {{ m.limite|int }}mg)
+                    {% if not loop.last %}<br>{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- PROIBIDOS -->
+        <div class="section">
+            <h3 class="proibido">🚫 Proibidos ({{ r.proibidos|length }})</h3>
+            {% for a in r.proibidos %}
+            <div class="alimento">
+                <div>
+                    <span class="alimento-nome">{{ a.nome }}</span>
+                    <span class="alimento-cat">{{ a.categoria }}</span>
+                </div>
+                <div class="alimento-motivo">
+                    {% for m in a.motivos %}
+                    {{ m.nutriente }}: {{ m.valor|int }}mg → {{ m.risco }}
+                    {% if not loop.last %}<br>{% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <a href="/" class="voltar-btn">← Nova consulta</a>
+    </div>
+
+    <div class="footer">
+        OntoDRC — TCC Guilherme Bessa — UnB/FCTE — 2026
+    </div>
+</body>
+</html>

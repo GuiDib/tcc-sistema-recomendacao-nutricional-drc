@@ -1,0 +1,14 @@
+venv/
+.claude/settings.local.json
+__pycache__/
+*.pyc
+*.sqlite3
+*.db
+.env
+*.log
+.DS_Store
+*.aux
+*.bbl
+*.blg
+*.out
+*.synctex.gz

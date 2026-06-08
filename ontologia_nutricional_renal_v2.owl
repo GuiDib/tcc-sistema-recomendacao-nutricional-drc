@@ -1,0 +1,630 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/ontologia-nutricional-renal"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     ontologyIRI="http://www.semanticweb.org/ontologia-nutricional-renal">
+
+    <Prefix name="" IRI="http://www.semanticweb.org/ontologia-nutricional-renal#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <Literal xml:lang="pt">OntoDRC — Ontologia Nutricional para Pacientes com Doença Renal Crônica. TCC de Guilherme Bessa — UnB/FCTE. 25 alimentos da tabela TACO com dados de potássio, sódio, fósforo, proteína e calorias por 100g. Restrições por estágio conforme KDIGO/KDOQI.</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <Literal xml:lang="pt">OntoDRC — Ontologia Nutricional Renal v2</Literal>
+    </Annotation>
+
+    <!-- ============================================================ -->
+    <!-- CLASSES                                                        -->
+    <!-- ============================================================ -->
+
+    <Declaration><Class IRI="#Alimento"/></Declaration>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Alimento</IRI>
+        <Literal xml:lang="pt">Item alimentar que pode ser recomendado, restrito ou proibido para o paciente renal.</Literal>
+    </AnnotationAssertion>
+
+    <!-- Subclasses por Categoria -->
+    <Declaration><Class IRI="#Fruta"/></Declaration>
+    <SubClassOf><Class IRI="#Fruta"/><Class IRI="#Alimento"/></SubClassOf>
+    <Declaration><Class IRI="#Verdura"/></Declaration>
+    <SubClassOf><Class IRI="#Verdura"/><Class IRI="#Alimento"/></SubClassOf>
+    <Declaration><Class IRI="#Leguminosa"/></Declaration>
+    <SubClassOf><Class IRI="#Leguminosa"/><Class IRI="#Alimento"/></SubClassOf>
+    <Declaration><Class IRI="#Cereal"/></Declaration>
+    <SubClassOf><Class IRI="#Cereal"/><Class IRI="#Alimento"/></SubClassOf>
+    <Declaration><Class IRI="#Proteina"/></Declaration>
+    <SubClassOf><Class IRI="#Proteina"/><Class IRI="#Alimento"/></SubClassOf>
+    <Declaration><Class IRI="#Laticinio"/></Declaration>
+    <SubClassOf><Class IRI="#Laticinio"/><Class IRI="#Alimento"/></SubClassOf>
+    <Declaration><Class IRI="#Bebida"/></Declaration>
+    <SubClassOf><Class IRI="#Bebida"/><Class IRI="#Alimento"/></SubClassOf>
+    <Declaration><Class IRI="#Industrializado"/></Declaration>
+    <SubClassOf><Class IRI="#Industrializado"/><Class IRI="#Alimento"/></SubClassOf>
+    <Declaration><Class IRI="#Tuberculo"/></Declaration>
+    <SubClassOf><Class IRI="#Tuberculo"/><Class IRI="#Alimento"/></SubClassOf>
+    <Declaration><Class IRI="#Ovo"/></Declaration>
+    <SubClassOf><Class IRI="#Ovo"/><Class IRI="#Alimento"/></SubClassOf>
+
+    <!-- Subclasses por Classificação Renal -->
+    <Declaration><Class IRI="#AlimentoPermitido"/></Declaration>
+    <SubClassOf><Class IRI="#AlimentoPermitido"/><Class IRI="#Alimento"/></SubClassOf>
+    <Declaration><Class IRI="#AlimentoRestrito"/></Declaration>
+    <SubClassOf><Class IRI="#AlimentoRestrito"/><Class IRI="#Alimento"/></SubClassOf>
+    <Declaration><Class IRI="#AlimentoProibido"/></Declaration>
+    <SubClassOf><Class IRI="#AlimentoProibido"/><Class IRI="#Alimento"/></SubClassOf>
+
+    <!-- Nutriente -->
+    <Declaration><Class IRI="#Nutriente"/></Declaration>
+    <Declaration><Class IRI="#Macronutriente"/></Declaration>
+    <SubClassOf><Class IRI="#Macronutriente"/><Class IRI="#Nutriente"/></SubClassOf>
+    <Declaration><Class IRI="#Micronutriente"/></Declaration>
+    <SubClassOf><Class IRI="#Micronutriente"/><Class IRI="#Nutriente"/></SubClassOf>
+    <Declaration><Class IRI="#Eletrolito"/></Declaration>
+    <SubClassOf><Class IRI="#Eletrolito"/><Class IRI="#Nutriente"/></SubClassOf>
+
+    <!-- Paciente -->
+    <Declaration><Class IRI="#Paciente"/></Declaration>
+
+    <!-- EstágioDRC -->
+    <Declaration><Class IRI="#EstagioDRC"/></Declaration>
+    <Declaration><Class IRI="#EstagioG1"/></Declaration>
+    <SubClassOf><Class IRI="#EstagioG1"/><Class IRI="#EstagioDRC"/></SubClassOf>
+    <AnnotationAssertion><AnnotationProperty abbreviatedIRI="rdfs:comment"/><IRI>#EstagioG1</IRI><Literal xml:lang="pt">TFG >= 90 mL/min/1.73m2</Literal></AnnotationAssertion>
+    <Declaration><Class IRI="#EstagioG2"/></Declaration>
+    <SubClassOf><Class IRI="#EstagioG2"/><Class IRI="#EstagioDRC"/></SubClassOf>
+    <AnnotationAssertion><AnnotationProperty abbreviatedIRI="rdfs:comment"/><IRI>#EstagioG2</IRI><Literal xml:lang="pt">TFG 60-89 mL/min/1.73m2</Literal></AnnotationAssertion>
+    <Declaration><Class IRI="#EstagioG3a"/></Declaration>
+    <SubClassOf><Class IRI="#EstagioG3a"/><Class IRI="#EstagioDRC"/></SubClassOf>
+    <AnnotationAssertion><AnnotationProperty abbreviatedIRI="rdfs:comment"/><IRI>#EstagioG3a</IRI><Literal xml:lang="pt">TFG 45-59 mL/min/1.73m2</Literal></AnnotationAssertion>
+    <Declaration><Class IRI="#EstagioG3b"/></Declaration>
+    <SubClassOf><Class IRI="#EstagioG3b"/><Class IRI="#EstagioDRC"/></SubClassOf>
+    <AnnotationAssertion><AnnotationProperty abbreviatedIRI="rdfs:comment"/><IRI>#EstagioG3b</IRI><Literal xml:lang="pt">TFG 30-44 mL/min/1.73m2</Literal></AnnotationAssertion>
+    <Declaration><Class IRI="#EstagioG4"/></Declaration>
+    <SubClassOf><Class IRI="#EstagioG4"/><Class IRI="#EstagioDRC"/></SubClassOf>
+    <AnnotationAssertion><AnnotationProperty abbreviatedIRI="rdfs:comment"/><IRI>#EstagioG4</IRI><Literal xml:lang="pt">TFG 15-29 mL/min/1.73m2</Literal></AnnotationAssertion>
+    <Declaration><Class IRI="#EstagioG5"/></Declaration>
+    <SubClassOf><Class IRI="#EstagioG5"/><Class IRI="#EstagioDRC"/></SubClassOf>
+    <AnnotationAssertion><AnnotationProperty abbreviatedIRI="rdfs:comment"/><IRI>#EstagioG5</IRI><Literal xml:lang="pt">TFG &lt; 15 mL/min/1.73m2. Inclui pacientes em diálise.</Literal></AnnotationAssertion>
+
+    <!-- RestriçãoNutricional -->
+    <Declaration><Class IRI="#RestricaoNutricional"/></Declaration>
+    <Declaration><Class IRI="#RestricaoPotassio"/></Declaration>
+    <SubClassOf><Class IRI="#RestricaoPotassio"/><Class IRI="#RestricaoNutricional"/></SubClassOf>
+    <Declaration><Class IRI="#RestricaoSodio"/></Declaration>
+    <SubClassOf><Class IRI="#RestricaoSodio"/><Class IRI="#RestricaoNutricional"/></SubClassOf>
+    <Declaration><Class IRI="#RestricaoFosforo"/></Declaration>
+    <SubClassOf><Class IRI="#RestricaoFosforo"/><Class IRI="#RestricaoNutricional"/></SubClassOf>
+    <Declaration><Class IRI="#RestricaoProteina"/></Declaration>
+    <SubClassOf><Class IRI="#RestricaoProteina"/><Class IRI="#RestricaoNutricional"/></SubClassOf>
+    <Declaration><Class IRI="#RestricaoLiquido"/></Declaration>
+    <SubClassOf><Class IRI="#RestricaoLiquido"/><Class IRI="#RestricaoNutricional"/></SubClassOf>
+
+    <!-- RecomendaçãoDietética -->
+    <Declaration><Class IRI="#RecomendacaoDietetica"/></Declaration>
+
+    <!-- RiscoClínico -->
+    <Declaration><Class IRI="#RiscoClinico"/></Declaration>
+    <Declaration><Class IRI="#Hipercalemia"/></Declaration>
+    <SubClassOf><Class IRI="#Hipercalemia"/><Class IRI="#RiscoClinico"/></SubClassOf>
+    <Declaration><Class IRI="#Hiperfosfatemia"/></Declaration>
+    <SubClassOf><Class IRI="#Hiperfosfatemia"/><Class IRI="#RiscoClinico"/></SubClassOf>
+    <Declaration><Class IRI="#Hipernatremia"/></Declaration>
+    <SubClassOf><Class IRI="#Hipernatremia"/><Class IRI="#RiscoClinico"/></SubClassOf>
+    <Declaration><Class IRI="#SobrecargaHidrica"/></Declaration>
+    <SubClassOf><Class IRI="#SobrecargaHidrica"/><Class IRI="#RiscoClinico"/></SubClassOf>
+    <Declaration><Class IRI="#DesnutricaoProteicoEnergetica"/></Declaration>
+    <SubClassOf><Class IRI="#DesnutricaoProteicoEnergetica"/><Class IRI="#RiscoClinico"/></SubClassOf>
+
+    <!-- ============================================================ -->
+    <!-- OBJECT PROPERTIES                                             -->
+    <!-- ============================================================ -->
+
+    <Declaration><ObjectProperty IRI="#contemNutriente"/></Declaration>
+    <ObjectPropertyDomain><ObjectProperty IRI="#contemNutriente"/><Class IRI="#Alimento"/></ObjectPropertyDomain>
+    <ObjectPropertyRange><ObjectProperty IRI="#contemNutriente"/><Class IRI="#Nutriente"/></ObjectPropertyRange>
+
+    <Declaration><ObjectProperty IRI="#possuiEstagio"/></Declaration>
+    <FunctionalObjectProperty><ObjectProperty IRI="#possuiEstagio"/></FunctionalObjectProperty>
+    <ObjectPropertyDomain><ObjectProperty IRI="#possuiEstagio"/><Class IRI="#Paciente"/></ObjectPropertyDomain>
+    <ObjectPropertyRange><ObjectProperty IRI="#possuiEstagio"/><Class IRI="#EstagioDRC"/></ObjectPropertyRange>
+
+    <Declaration><ObjectProperty IRI="#temRestricao"/></Declaration>
+    <ObjectPropertyDomain><ObjectProperty IRI="#temRestricao"/><Class IRI="#EstagioDRC"/></ObjectPropertyDomain>
+    <ObjectPropertyRange><ObjectProperty IRI="#temRestricao"/><Class IRI="#RestricaoNutricional"/></ObjectPropertyRange>
+
+    <Declaration><ObjectProperty IRI="#recomendaAlimento"/></Declaration>
+    <ObjectPropertyDomain><ObjectProperty IRI="#recomendaAlimento"/><Class IRI="#RecomendacaoDietetica"/></ObjectPropertyDomain>
+    <ObjectPropertyRange><ObjectProperty IRI="#recomendaAlimento"/><Class IRI="#Alimento"/></ObjectPropertyRange>
+
+    <Declaration><ObjectProperty IRI="#restringeAlimento"/></Declaration>
+    <ObjectPropertyDomain><ObjectProperty IRI="#restringeAlimento"/><Class IRI="#RestricaoNutricional"/></ObjectPropertyDomain>
+    <ObjectPropertyRange><ObjectProperty IRI="#restringeAlimento"/><Class IRI="#Alimento"/></ObjectPropertyRange>
+
+    <Declaration><ObjectProperty IRI="#provocaRisco"/></Declaration>
+    <ObjectPropertyDomain><ObjectProperty IRI="#provocaRisco"/><Class IRI="#Nutriente"/></ObjectPropertyDomain>
+    <ObjectPropertyRange><ObjectProperty IRI="#provocaRisco"/><Class IRI="#RiscoClinico"/></ObjectPropertyRange>
+
+    <Declaration><ObjectProperty IRI="#geradaPara"/></Declaration>
+    <ObjectPropertyDomain><ObjectProperty IRI="#geradaPara"/><Class IRI="#RecomendacaoDietetica"/></ObjectPropertyDomain>
+    <ObjectPropertyRange><ObjectProperty IRI="#geradaPara"/><Class IRI="#Paciente"/></ObjectPropertyRange>
+
+    <Declaration><ObjectProperty IRI="#comBaseEm"/></Declaration>
+    <ObjectPropertyDomain><ObjectProperty IRI="#comBaseEm"/><Class IRI="#RecomendacaoDietetica"/></ObjectPropertyDomain>
+    <ObjectPropertyRange><ObjectProperty IRI="#comBaseEm"/><Class IRI="#RestricaoNutricional"/></ObjectPropertyRange>
+
+    <!-- ============================================================ -->
+    <!-- DATA PROPERTIES                                               -->
+    <!-- ============================================================ -->
+
+    <Declaration><DataProperty IRI="#temIdade"/></Declaration>
+    <DataPropertyDomain><DataProperty IRI="#temIdade"/><Class IRI="#Paciente"/></DataPropertyDomain>
+    <DataPropertyRange><DataProperty IRI="#temIdade"/><Datatype IRI="http://www.w3.org/2001/XMLSchema#integer"/></DataPropertyRange>
+
+    <Declaration><DataProperty IRI="#temPeso"/></Declaration>
+    <DataPropertyDomain><DataProperty IRI="#temPeso"/><Class IRI="#Paciente"/></DataPropertyDomain>
+    <DataPropertyRange><DataProperty IRI="#temPeso"/><Datatype IRI="http://www.w3.org/2001/XMLSchema#double"/></DataPropertyRange>
+
+    <Declaration><DataProperty IRI="#temTFG"/></Declaration>
+    <DataPropertyDomain><DataProperty IRI="#temTFG"/><Class IRI="#Paciente"/></DataPropertyDomain>
+    <DataPropertyRange><DataProperty IRI="#temTFG"/><Datatype IRI="http://www.w3.org/2001/XMLSchema#double"/></DataPropertyRange>
+
+    <Declaration><DataProperty IRI="#emDialise"/></Declaration>
+    <DataPropertyDomain><DataProperty IRI="#emDialise"/><Class IRI="#Paciente"/></DataPropertyDomain>
+    <DataPropertyRange><DataProperty IRI="#emDialise"/><Datatype IRI="http://www.w3.org/2001/XMLSchema#boolean"/></DataPropertyRange>
+
+    <Declaration><DataProperty IRI="#temDiabetes"/></Declaration>
+    <DataPropertyDomain><DataProperty IRI="#temDiabetes"/><Class IRI="#Paciente"/></DataPropertyDomain>
+    <DataPropertyRange><DataProperty IRI="#temDiabetes"/><Datatype IRI="http://www.w3.org/2001/XMLSchema#boolean"/></DataPropertyRange>
+
+    <Declaration><DataProperty IRI="#temHipertensao"/></Declaration>
+    <DataPropertyDomain><DataProperty IRI="#temHipertensao"/><Class IRI="#Paciente"/></DataPropertyDomain>
+    <DataPropertyRange><DataProperty IRI="#temHipertensao"/><Datatype IRI="http://www.w3.org/2001/XMLSchema#boolean"/></DataPropertyRange>
+
+    <Declaration><DataProperty IRI="#potassioPor100g"/></Declaration>
+    <DataPropertyDomain><DataProperty IRI="#potassioPor100g"/><Class IRI="#Alimento"/></DataPropertyDomain>
+    <DataPropertyRange><DataProperty IRI="#potassioPor100g"/><Datatype IRI="http://www.w3.org/2001/XMLSchema#double"/></DataPropertyRange>
+
+    <Declaration><DataProperty IRI="#sodioPor100g"/></Declaration>
+    <DataPropertyDomain><DataProperty IRI="#sodioPor100g"/><Class IRI="#Alimento"/></DataPropertyDomain>
+    <DataPropertyRange><DataProperty IRI="#sodioPor100g"/><Datatype IRI="http://www.w3.org/2001/XMLSchema#double"/></DataPropertyRange>
+
+    <Declaration><DataProperty IRI="#fosforoPor100g"/></Declaration>
+    <DataPropertyDomain><DataProperty IRI="#fosforoPor100g"/><Class IRI="#Alimento"/></DataPropertyDomain>
+    <DataPropertyRange><DataProperty IRI="#fosforoPor100g"/><Datatype IRI="http://www.w3.org/2001/XMLSchema#double"/></DataPropertyRange>
+
+    <Declaration><DataProperty IRI="#proteinaPor100g"/></Declaration>
+    <DataPropertyDomain><DataProperty IRI="#proteinaPor100g"/><Class IRI="#Alimento"/></DataPropertyDomain>
+    <DataPropertyRange><DataProperty IRI="#proteinaPor100g"/><Datatype IRI="http://www.w3.org/2001/XMLSchema#double"/></DataPropertyRange>
+
+    <Declaration><DataProperty IRI="#caloriasPor100g"/></Declaration>
+    <DataPropertyDomain><DataProperty IRI="#caloriasPor100g"/><Class IRI="#Alimento"/></DataPropertyDomain>
+    <DataPropertyRange><DataProperty IRI="#caloriasPor100g"/><Datatype IRI="http://www.w3.org/2001/XMLSchema#double"/></DataPropertyRange>
+
+    <Declaration><DataProperty IRI="#limiteDiarioMg"/></Declaration>
+    <DataPropertyDomain><DataProperty IRI="#limiteDiarioMg"/><Class IRI="#RestricaoNutricional"/></DataPropertyDomain>
+    <DataPropertyRange><DataProperty IRI="#limiteDiarioMg"/><Datatype IRI="http://www.w3.org/2001/XMLSchema#double"/></DataPropertyRange>
+
+    <Declaration><DataProperty IRI="#limiteDiarioGkg"/></Declaration>
+    <DataPropertyDomain><DataProperty IRI="#limiteDiarioGkg"/><Class IRI="#RestricaoNutricional"/></DataPropertyDomain>
+    <DataPropertyRange><DataProperty IRI="#limiteDiarioGkg"/><Datatype IRI="http://www.w3.org/2001/XMLSchema#double"/></DataPropertyRange>
+
+    <!-- ============================================================ -->
+    <!-- INDIVÍDUOS: NUTRIENTES                                        -->
+    <!-- ============================================================ -->
+
+    <Declaration><NamedIndividual IRI="#Potassio"/></Declaration>
+    <ClassAssertion><Class IRI="#Eletrolito"/><NamedIndividual IRI="#Potassio"/></ClassAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#provocaRisco"/><NamedIndividual IRI="#Potassio"/><NamedIndividual IRI="#RiscoHipercalemia"/></ObjectPropertyAssertion>
+
+    <Declaration><NamedIndividual IRI="#Sodio"/></Declaration>
+    <ClassAssertion><Class IRI="#Eletrolito"/><NamedIndividual IRI="#Sodio"/></ClassAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#provocaRisco"/><NamedIndividual IRI="#Sodio"/><NamedIndividual IRI="#RiscoHipernatremia"/></ObjectPropertyAssertion>
+
+    <Declaration><NamedIndividual IRI="#Fosforo"/></Declaration>
+    <ClassAssertion><Class IRI="#Micronutriente"/><NamedIndividual IRI="#Fosforo"/></ClassAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#provocaRisco"/><NamedIndividual IRI="#Fosforo"/><NamedIndividual IRI="#RiscoHiperfosfatemia"/></ObjectPropertyAssertion>
+
+    <Declaration><NamedIndividual IRI="#ProteinaNU"/></Declaration>
+    <ClassAssertion><Class IRI="#Macronutriente"/><NamedIndividual IRI="#ProteinaNU"/></ClassAssertion>
+
+    <!-- RISCOS CLÍNICOS -->
+    <Declaration><NamedIndividual IRI="#RiscoHipercalemia"/></Declaration>
+    <ClassAssertion><Class IRI="#Hipercalemia"/><NamedIndividual IRI="#RiscoHipercalemia"/></ClassAssertion>
+    <Declaration><NamedIndividual IRI="#RiscoHiperfosfatemia"/></Declaration>
+    <ClassAssertion><Class IRI="#Hiperfosfatemia"/><NamedIndividual IRI="#RiscoHiperfosfatemia"/></ClassAssertion>
+    <Declaration><NamedIndividual IRI="#RiscoHipernatremia"/></Declaration>
+    <ClassAssertion><Class IRI="#Hipernatremia"/><NamedIndividual IRI="#RiscoHipernatremia"/></ClassAssertion>
+
+    <!-- ============================================================ -->
+    <!-- INDIVÍDUOS: ESTÁGIOS                                          -->
+    <!-- ============================================================ -->
+
+    <Declaration><NamedIndividual IRI="#G1"/></Declaration>
+    <ClassAssertion><Class IRI="#EstagioG1"/><NamedIndividual IRI="#G1"/></ClassAssertion>
+    <Declaration><NamedIndividual IRI="#G2"/></Declaration>
+    <ClassAssertion><Class IRI="#EstagioG2"/><NamedIndividual IRI="#G2"/></ClassAssertion>
+    <Declaration><NamedIndividual IRI="#G3a"/></Declaration>
+    <ClassAssertion><Class IRI="#EstagioG3a"/><NamedIndividual IRI="#G3a"/></ClassAssertion>
+    <Declaration><NamedIndividual IRI="#G3b"/></Declaration>
+    <ClassAssertion><Class IRI="#EstagioG3b"/><NamedIndividual IRI="#G3b"/></ClassAssertion>
+    <Declaration><NamedIndividual IRI="#G4"/></Declaration>
+    <ClassAssertion><Class IRI="#EstagioG4"/><NamedIndividual IRI="#G4"/></ClassAssertion>
+    <Declaration><NamedIndividual IRI="#G5"/></Declaration>
+    <ClassAssertion><Class IRI="#EstagioG5"/><NamedIndividual IRI="#G5"/></ClassAssertion>
+
+    <!-- ============================================================ -->
+    <!-- RESTRIÇÕES POR ESTÁGIO (KDIGO/KDOQI)                         -->
+    <!-- ============================================================ -->
+
+    <!-- G3a: sódio restrito -->
+    <Declaration><NamedIndividual IRI="#RestSodioG3a"/></Declaration>
+    <ClassAssertion><Class IRI="#RestricaoSodio"/><NamedIndividual IRI="#RestSodioG3a"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#limiteDiarioMg"/><NamedIndividual IRI="#RestSodioG3a"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">2000.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#temRestricao"/><NamedIndividual IRI="#G3a"/><NamedIndividual IRI="#RestSodioG3a"/></ObjectPropertyAssertion>
+
+    <!-- G3b: potássio, sódio, fósforo, proteína -->
+    <Declaration><NamedIndividual IRI="#RestPotassioG3b"/></Declaration>
+    <ClassAssertion><Class IRI="#RestricaoPotassio"/><NamedIndividual IRI="#RestPotassioG3b"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#limiteDiarioMg"/><NamedIndividual IRI="#RestPotassioG3b"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">2000.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#temRestricao"/><NamedIndividual IRI="#G3b"/><NamedIndividual IRI="#RestPotassioG3b"/></ObjectPropertyAssertion>
+
+    <Declaration><NamedIndividual IRI="#RestSodioG3b"/></Declaration>
+    <ClassAssertion><Class IRI="#RestricaoSodio"/><NamedIndividual IRI="#RestSodioG3b"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#limiteDiarioMg"/><NamedIndividual IRI="#RestSodioG3b"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">2000.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#temRestricao"/><NamedIndividual IRI="#G3b"/><NamedIndividual IRI="#RestSodioG3b"/></ObjectPropertyAssertion>
+
+    <Declaration><NamedIndividual IRI="#RestFosforoG3b"/></Declaration>
+    <ClassAssertion><Class IRI="#RestricaoFosforo"/><NamedIndividual IRI="#RestFosforoG3b"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#limiteDiarioMg"/><NamedIndividual IRI="#RestFosforoG3b"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">800.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#temRestricao"/><NamedIndividual IRI="#G3b"/><NamedIndividual IRI="#RestFosforoG3b"/></ObjectPropertyAssertion>
+
+    <Declaration><NamedIndividual IRI="#RestProteinaG3b"/></Declaration>
+    <ClassAssertion><Class IRI="#RestricaoProteina"/><NamedIndividual IRI="#RestProteinaG3b"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#limiteDiarioGkg"/><NamedIndividual IRI="#RestProteinaG3b"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">0.6</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#temRestricao"/><NamedIndividual IRI="#G3b"/><NamedIndividual IRI="#RestProteinaG3b"/></ObjectPropertyAssertion>
+
+    <!-- G4: mesmas restrições com limites mais rigorosos -->
+    <Declaration><NamedIndividual IRI="#RestPotassioG4"/></Declaration>
+    <ClassAssertion><Class IRI="#RestricaoPotassio"/><NamedIndividual IRI="#RestPotassioG4"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#limiteDiarioMg"/><NamedIndividual IRI="#RestPotassioG4"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1500.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#temRestricao"/><NamedIndividual IRI="#G4"/><NamedIndividual IRI="#RestPotassioG4"/></ObjectPropertyAssertion>
+
+    <Declaration><NamedIndividual IRI="#RestSodioG4"/></Declaration>
+    <ClassAssertion><Class IRI="#RestricaoSodio"/><NamedIndividual IRI="#RestSodioG4"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#limiteDiarioMg"/><NamedIndividual IRI="#RestSodioG4"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">2000.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#temRestricao"/><NamedIndividual IRI="#G4"/><NamedIndividual IRI="#RestSodioG4"/></ObjectPropertyAssertion>
+
+    <Declaration><NamedIndividual IRI="#RestFosforoG4"/></Declaration>
+    <ClassAssertion><Class IRI="#RestricaoFosforo"/><NamedIndividual IRI="#RestFosforoG4"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#limiteDiarioMg"/><NamedIndividual IRI="#RestFosforoG4"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">800.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#temRestricao"/><NamedIndividual IRI="#G4"/><NamedIndividual IRI="#RestFosforoG4"/></ObjectPropertyAssertion>
+
+    <Declaration><NamedIndividual IRI="#RestProteinaG4"/></Declaration>
+    <ClassAssertion><Class IRI="#RestricaoProteina"/><NamedIndividual IRI="#RestProteinaG4"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#limiteDiarioGkg"/><NamedIndividual IRI="#RestProteinaG4"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">0.6</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#temRestricao"/><NamedIndividual IRI="#G4"/><NamedIndividual IRI="#RestProteinaG4"/></ObjectPropertyAssertion>
+
+    <!-- G5 (diálise): proteína sobe, demais restritos + líquido -->
+    <Declaration><NamedIndividual IRI="#RestPotassioG5"/></Declaration>
+    <ClassAssertion><Class IRI="#RestricaoPotassio"/><NamedIndividual IRI="#RestPotassioG5"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#limiteDiarioMg"/><NamedIndividual IRI="#RestPotassioG5"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1500.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#temRestricao"/><NamedIndividual IRI="#G5"/><NamedIndividual IRI="#RestPotassioG5"/></ObjectPropertyAssertion>
+
+    <Declaration><NamedIndividual IRI="#RestSodioG5"/></Declaration>
+    <ClassAssertion><Class IRI="#RestricaoSodio"/><NamedIndividual IRI="#RestSodioG5"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#limiteDiarioMg"/><NamedIndividual IRI="#RestSodioG5"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">2000.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#temRestricao"/><NamedIndividual IRI="#G5"/><NamedIndividual IRI="#RestSodioG5"/></ObjectPropertyAssertion>
+
+    <Declaration><NamedIndividual IRI="#RestFosforoG5"/></Declaration>
+    <ClassAssertion><Class IRI="#RestricaoFosforo"/><NamedIndividual IRI="#RestFosforoG5"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#limiteDiarioMg"/><NamedIndividual IRI="#RestFosforoG5"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">800.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#temRestricao"/><NamedIndividual IRI="#G5"/><NamedIndividual IRI="#RestFosforoG5"/></ObjectPropertyAssertion>
+
+    <Declaration><NamedIndividual IRI="#RestProteinaG5"/></Declaration>
+    <ClassAssertion><Class IRI="#RestricaoProteina"/><NamedIndividual IRI="#RestProteinaG5"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#limiteDiarioGkg"/><NamedIndividual IRI="#RestProteinaG5"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1.2</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#temRestricao"/><NamedIndividual IRI="#G5"/><NamedIndividual IRI="#RestProteinaG5"/></ObjectPropertyAssertion>
+
+    <Declaration><NamedIndividual IRI="#RestLiquidoG5"/></Declaration>
+    <ClassAssertion><Class IRI="#RestricaoLiquido"/><NamedIndividual IRI="#RestLiquidoG5"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#limiteDiarioMg"/><NamedIndividual IRI="#RestLiquidoG5"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1000.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#temRestricao"/><NamedIndividual IRI="#G5"/><NamedIndividual IRI="#RestLiquidoG5"/></ObjectPropertyAssertion>
+
+    <!-- ============================================================ -->
+    <!-- INDIVÍDUOS: 25 ALIMENTOS (DADOS TACO por 100g)               -->
+    <!-- Fonte: Tabela TACO 4a edição — NEPA/UNICAMP                 -->
+    <!-- Valores: potássio, sódio, fósforo, proteína, calorias (mg/g) -->
+    <!-- ============================================================ -->
+
+    <!-- 01. Banana-prata -->
+    <Declaration><NamedIndividual IRI="#BananaPrata"/></Declaration>
+    <ClassAssertion><Class IRI="#Fruta"/><NamedIndividual IRI="#BananaPrata"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#BananaPrata"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">358.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#BananaPrata"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#BananaPrata"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">22.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#BananaPrata"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1.3</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#BananaPrata"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">98.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#BananaPrata"/><NamedIndividual IRI="#Potassio"/></ObjectPropertyAssertion>
+
+    <!-- 02. Maçã Fuji -->
+    <Declaration><NamedIndividual IRI="#MacaFuji"/></Declaration>
+    <ClassAssertion><Class IRI="#Fruta"/><NamedIndividual IRI="#MacaFuji"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#MacaFuji"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">75.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#MacaFuji"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#MacaFuji"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">9.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#MacaFuji"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">0.3</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#MacaFuji"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">56.0</Literal></DataPropertyAssertion>
+
+    <!-- 03. Laranja-pera -->
+    <Declaration><NamedIndividual IRI="#LaranjaPera"/></Declaration>
+    <ClassAssertion><Class IRI="#Fruta"/><NamedIndividual IRI="#LaranjaPera"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#LaranjaPera"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">163.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#LaranjaPera"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#LaranjaPera"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">17.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#LaranjaPera"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#LaranjaPera"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">37.0</Literal></DataPropertyAssertion>
+
+    <!-- 04. Mamão papaia -->
+    <Declaration><NamedIndividual IRI="#MamaoPapaia"/></Declaration>
+    <ClassAssertion><Class IRI="#Fruta"/><NamedIndividual IRI="#MamaoPapaia"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#MamaoPapaia"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">222.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#MamaoPapaia"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">3.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#MamaoPapaia"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">13.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#MamaoPapaia"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">0.5</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#MamaoPapaia"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">40.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#MamaoPapaia"/><NamedIndividual IRI="#Potassio"/></ObjectPropertyAssertion>
+
+    <!-- 05. Abacaxi pérola -->
+    <Declaration><NamedIndividual IRI="#Abacaxi"/></Declaration>
+    <ClassAssertion><Class IRI="#Fruta"/><NamedIndividual IRI="#Abacaxi"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#Abacaxi"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">131.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#Abacaxi"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#Abacaxi"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">8.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#Abacaxi"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">0.9</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#Abacaxi"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">48.0</Literal></DataPropertyAssertion>
+
+    <!-- 06. Alface crespa -->
+    <Declaration><NamedIndividual IRI="#AlfaceCrespa"/></Declaration>
+    <ClassAssertion><Class IRI="#Verdura"/><NamedIndividual IRI="#AlfaceCrespa"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#AlfaceCrespa"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">267.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#AlfaceCrespa"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">3.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#AlfaceCrespa"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">26.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#AlfaceCrespa"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1.3</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#AlfaceCrespa"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">11.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#AlfaceCrespa"/><NamedIndividual IRI="#Potassio"/></ObjectPropertyAssertion>
+
+    <!-- 07. Tomate -->
+    <Declaration><NamedIndividual IRI="#Tomate"/></Declaration>
+    <ClassAssertion><Class IRI="#Verdura"/><NamedIndividual IRI="#Tomate"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#Tomate"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">222.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#Tomate"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">2.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#Tomate"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">18.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#Tomate"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1.1</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#Tomate"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">15.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#Tomate"/><NamedIndividual IRI="#Potassio"/></ObjectPropertyAssertion>
+
+    <!-- 08. Espinafre cozido -->
+    <Declaration><NamedIndividual IRI="#EspinafreCozido"/></Declaration>
+    <ClassAssertion><Class IRI="#Verdura"/><NamedIndividual IRI="#EspinafreCozido"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#EspinafreCozido"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">466.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#EspinafreCozido"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">79.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#EspinafreCozido"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">49.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#EspinafreCozido"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">2.9</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#EspinafreCozido"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">23.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#EspinafreCozido"/><NamedIndividual IRI="#Potassio"/></ObjectPropertyAssertion>
+
+    <!-- 09. Cenoura crua -->
+    <Declaration><NamedIndividual IRI="#CenouraCrua"/></Declaration>
+    <ClassAssertion><Class IRI="#Verdura"/><NamedIndividual IRI="#CenouraCrua"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#CenouraCrua"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">315.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#CenouraCrua"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">3.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#CenouraCrua"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">28.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#CenouraCrua"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1.3</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#CenouraCrua"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">34.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#CenouraCrua"/><NamedIndividual IRI="#Potassio"/></ObjectPropertyAssertion>
+
+    <!-- 10. Arroz branco cozido -->
+    <Declaration><NamedIndividual IRI="#ArrozBranco"/></Declaration>
+    <ClassAssertion><Class IRI="#Cereal"/><NamedIndividual IRI="#ArrozBranco"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#ArrozBranco"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">62.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#ArrozBranco"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#ArrozBranco"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">18.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#ArrozBranco"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">2.5</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#ArrozBranco"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">128.0</Literal></DataPropertyAssertion>
+
+    <!-- 11. Pão francês -->
+    <Declaration><NamedIndividual IRI="#PaoFrances"/></Declaration>
+    <ClassAssertion><Class IRI="#Cereal"/><NamedIndividual IRI="#PaoFrances"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#PaoFrances"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">120.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#PaoFrances"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">648.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#PaoFrances"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">88.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#PaoFrances"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">8.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#PaoFrances"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">300.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#PaoFrances"/><NamedIndividual IRI="#Sodio"/></ObjectPropertyAssertion>
+
+    <!-- 12. Macarrão cozido -->
+    <Declaration><NamedIndividual IRI="#MacarraoCozido"/></Declaration>
+    <ClassAssertion><Class IRI="#Cereal"/><NamedIndividual IRI="#MacarraoCozido"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#MacarraoCozido"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">15.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#MacarraoCozido"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#MacarraoCozido"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">42.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#MacarraoCozido"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">3.4</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#MacarraoCozido"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">102.0</Literal></DataPropertyAssertion>
+
+    <!-- 13. Feijão carioca cozido -->
+    <Declaration><NamedIndividual IRI="#FeijãoCarioca"/></Declaration>
+    <ClassAssertion><Class IRI="#Leguminosa"/><NamedIndividual IRI="#FeijãoCarioca"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#FeijãoCarioca"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">256.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#FeijãoCarioca"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">2.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#FeijãoCarioca"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">119.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#FeijãoCarioca"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">4.8</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#FeijãoCarioca"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">76.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#FeijãoCarioca"/><NamedIndividual IRI="#Potassio"/></ObjectPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#FeijãoCarioca"/><NamedIndividual IRI="#Fosforo"/></ObjectPropertyAssertion>
+
+    <!-- 14. Feijão preto cozido -->
+    <Declaration><NamedIndividual IRI="#FeijaoPreto"/></Declaration>
+    <ClassAssertion><Class IRI="#Leguminosa"/><NamedIndividual IRI="#FeijaoPreto"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#FeijaoPreto"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">256.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#FeijaoPreto"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">2.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#FeijaoPreto"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">140.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#FeijaoPreto"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">4.5</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#FeijaoPreto"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">77.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#FeijaoPreto"/><NamedIndividual IRI="#Potassio"/></ObjectPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#FeijaoPreto"/><NamedIndividual IRI="#Fosforo"/></ObjectPropertyAssertion>
+
+    <!-- 15. Peito de frango grelhado -->
+    <Declaration><NamedIndividual IRI="#PeitoFrango"/></Declaration>
+    <ClassAssertion><Class IRI="#Proteina"/><NamedIndividual IRI="#PeitoFrango"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#PeitoFrango"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">245.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#PeitoFrango"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">51.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#PeitoFrango"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">195.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#PeitoFrango"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">31.5</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#PeitoFrango"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">159.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#PeitoFrango"/><NamedIndividual IRI="#Fosforo"/></ObjectPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#PeitoFrango"/><NamedIndividual IRI="#ProteinaNU"/></ObjectPropertyAssertion>
+
+    <!-- 16. Carne bovina (patinho grelhado) -->
+    <Declaration><NamedIndividual IRI="#PatinhoGrelhado"/></Declaration>
+    <ClassAssertion><Class IRI="#Proteina"/><NamedIndividual IRI="#PatinhoGrelhado"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#PatinhoGrelhado"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">370.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#PatinhoGrelhado"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">45.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#PatinhoGrelhado"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">228.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#PatinhoGrelhado"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">35.9</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#PatinhoGrelhado"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">219.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#PatinhoGrelhado"/><NamedIndividual IRI="#Potassio"/></ObjectPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#PatinhoGrelhado"/><NamedIndividual IRI="#Fosforo"/></ObjectPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#PatinhoGrelhado"/><NamedIndividual IRI="#ProteinaNU"/></ObjectPropertyAssertion>
+
+    <!-- 17. Ovo de galinha cozido -->
+    <Declaration><NamedIndividual IRI="#OvoCozido"/></Declaration>
+    <ClassAssertion><Class IRI="#Ovo"/><NamedIndividual IRI="#OvoCozido"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#OvoCozido"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">130.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#OvoCozido"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">142.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#OvoCozido"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">186.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#OvoCozido"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">13.3</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#OvoCozido"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">146.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#OvoCozido"/><NamedIndividual IRI="#Fosforo"/></ObjectPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#OvoCozido"/><NamedIndividual IRI="#Sodio"/></ObjectPropertyAssertion>
+
+    <!-- 18. Leite integral -->
+    <Declaration><NamedIndividual IRI="#LeiteIntegral"/></Declaration>
+    <ClassAssertion><Class IRI="#Laticinio"/><NamedIndividual IRI="#LeiteIntegral"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#LeiteIntegral"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">150.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#LeiteIntegral"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">61.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#LeiteIntegral"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">93.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#LeiteIntegral"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">3.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#LeiteIntegral"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">62.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#LeiteIntegral"/><NamedIndividual IRI="#Fosforo"/></ObjectPropertyAssertion>
+
+    <!-- 19. Queijo minas frescal -->
+    <Declaration><NamedIndividual IRI="#QueijoMinas"/></Declaration>
+    <ClassAssertion><Class IRI="#Laticinio"/><NamedIndividual IRI="#QueijoMinas"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#QueijoMinas"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">75.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#QueijoMinas"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">370.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#QueijoMinas"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">355.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#QueijoMinas"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">17.4</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#QueijoMinas"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">264.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#QueijoMinas"/><NamedIndividual IRI="#Sodio"/></ObjectPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#QueijoMinas"/><NamedIndividual IRI="#Fosforo"/></ObjectPropertyAssertion>
+
+    <!-- 20. Batata inglesa cozida -->
+    <Declaration><NamedIndividual IRI="#BatataInglesaCozida"/></Declaration>
+    <ClassAssertion><Class IRI="#Tuberculo"/><NamedIndividual IRI="#BatataInglesaCozida"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#BatataInglesaCozida"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">302.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#BatataInglesaCozida"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">2.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#BatataInglesaCozida"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">32.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#BatataInglesaCozida"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1.2</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#BatataInglesaCozida"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">52.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#BatataInglesaCozida"/><NamedIndividual IRI="#Potassio"/></ObjectPropertyAssertion>
+
+    <!-- 21. Mandioca cozida -->
+    <Declaration><NamedIndividual IRI="#MandiocaCozida"/></Declaration>
+    <ClassAssertion><Class IRI="#Tuberculo"/><NamedIndividual IRI="#MandiocaCozida"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#MandiocaCozida"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">208.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#MandiocaCozida"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">2.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#MandiocaCozida"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">25.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#MandiocaCozida"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">0.6</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#MandiocaCozida"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">125.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#MandiocaCozida"/><NamedIndividual IRI="#Potassio"/></ObjectPropertyAssertion>
+
+    <!-- 22. Tilápia grelhada -->
+    <Declaration><NamedIndividual IRI="#TilapiaGrelhada"/></Declaration>
+    <ClassAssertion><Class IRI="#Proteina"/><NamedIndividual IRI="#TilapiaGrelhada"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#TilapiaGrelhada"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">380.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#TilapiaGrelhada"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">52.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#TilapiaGrelhada"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">204.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#TilapiaGrelhada"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">26.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#TilapiaGrelhada"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">128.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#TilapiaGrelhada"/><NamedIndividual IRI="#Potassio"/></ObjectPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#TilapiaGrelhada"/><NamedIndividual IRI="#Fosforo"/></ObjectPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#TilapiaGrelhada"/><NamedIndividual IRI="#ProteinaNU"/></ObjectPropertyAssertion>
+
+    <!-- 23. Refrigerante cola -->
+    <Declaration><NamedIndividual IRI="#RefrigeranteCola"/></Declaration>
+    <ClassAssertion><Class IRI="#Bebida"/><NamedIndividual IRI="#RefrigeranteCola"/></ClassAssertion>
+    <ClassAssertion><Class IRI="#Industrializado"/><NamedIndividual IRI="#RefrigeranteCola"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#RefrigeranteCola"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">2.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#RefrigeranteCola"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">4.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#RefrigeranteCola"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">17.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#RefrigeranteCola"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">0.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#RefrigeranteCola"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">37.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#RefrigeranteCola"/><NamedIndividual IRI="#Fosforo"/></ObjectPropertyAssertion>
+
+    <!-- 24. Salsicha (tipo hot dog) -->
+    <Declaration><NamedIndividual IRI="#Salsicha"/></Declaration>
+    <ClassAssertion><Class IRI="#Industrializado"/><NamedIndividual IRI="#Salsicha"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#Salsicha"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">120.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#Salsicha"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1077.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#Salsicha"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">98.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#Salsicha"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">12.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#Salsicha"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">230.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#Salsicha"/><NamedIndividual IRI="#Sodio"/></ObjectPropertyAssertion>
+
+    <!-- 25. Mortadela -->
+    <Declaration><NamedIndividual IRI="#Mortadela"/></Declaration>
+    <ClassAssertion><Class IRI="#Industrializado"/><NamedIndividual IRI="#Mortadela"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#potassioPor100g"/><NamedIndividual IRI="#Mortadela"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">136.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#sodioPor100g"/><NamedIndividual IRI="#Mortadela"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">1180.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#fosforoPor100g"/><NamedIndividual IRI="#Mortadela"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">123.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#proteinaPor100g"/><NamedIndividual IRI="#Mortadela"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">12.2</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#caloriasPor100g"/><NamedIndividual IRI="#Mortadela"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">269.0</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#contemNutriente"/><NamedIndividual IRI="#Mortadela"/><NamedIndividual IRI="#Sodio"/></ObjectPropertyAssertion>
+
+    <!-- ============================================================ -->
+    <!-- PACIENTES EXEMPLO                                             -->
+    <!-- ============================================================ -->
+
+    <Declaration><NamedIndividual IRI="#PacienteExemplo01"/></Declaration>
+    <ClassAssertion><Class IRI="#Paciente"/><NamedIndividual IRI="#PacienteExemplo01"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#temIdade"/><NamedIndividual IRI="#PacienteExemplo01"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">62</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#temPeso"/><NamedIndividual IRI="#PacienteExemplo01"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">75.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#temTFG"/><NamedIndividual IRI="#PacienteExemplo01"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">35.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#emDialise"/><NamedIndividual IRI="#PacienteExemplo01"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#temDiabetes"/><NamedIndividual IRI="#PacienteExemplo01"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#temHipertensao"/><NamedIndividual IRI="#PacienteExemplo01"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#possuiEstagio"/><NamedIndividual IRI="#PacienteExemplo01"/><NamedIndividual IRI="#G3b"/></ObjectPropertyAssertion>
+
+    <Declaration><NamedIndividual IRI="#PacienteExemplo02"/></Declaration>
+    <ClassAssertion><Class IRI="#Paciente"/><NamedIndividual IRI="#PacienteExemplo02"/></ClassAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#temIdade"/><NamedIndividual IRI="#PacienteExemplo02"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">48</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#temPeso"/><NamedIndividual IRI="#PacienteExemplo02"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">68.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#temTFG"/><NamedIndividual IRI="#PacienteExemplo02"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#double">10.0</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#emDialise"/><NamedIndividual IRI="#PacienteExemplo02"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#temDiabetes"/><NamedIndividual IRI="#PacienteExemplo02"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">false</Literal></DataPropertyAssertion>
+    <DataPropertyAssertion><DataProperty IRI="#temHipertensao"/><NamedIndividual IRI="#PacienteExemplo02"/><Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal></DataPropertyAssertion>
+    <ObjectPropertyAssertion><ObjectProperty IRI="#possuiEstagio"/><NamedIndividual IRI="#PacienteExemplo02"/><NamedIndividual IRI="#G5"/></ObjectPropertyAssertion>
+
+</Ontology>

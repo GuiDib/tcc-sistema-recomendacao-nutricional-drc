@@ -1,0 +1,2 @@
+owlready2>=0.45
+flask>=3.0
