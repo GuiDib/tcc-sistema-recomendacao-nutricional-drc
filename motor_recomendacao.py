@@ -10,12 +10,26 @@ Módulo principal do sistema de recomendação. Contém:
 
 from owlready2 import get_ontology
 import os
+import re
 
 # ============================================================
-# CARREGAR ONTOLOGIA
+# CARREGAR ONTOLOGIA (lazy)
 # ============================================================
 OWL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ontologia_nutricional_renal_v3.owl")
-onto = get_ontology(f"file://{OWL_PATH}").load()
+
+_onto_cache = None
+
+
+def _get_onto():
+    """Carrega a ontologia OWL sob demanda (lazy) e mantém em cache.
+
+    Evita carregar a ontologia no momento do import, o que torna o módulo
+    mais leve para testar e importar.
+    """
+    global _onto_cache
+    if _onto_cache is None:
+        _onto_cache = get_ontology(f"file://{OWL_PATH}").load()
+    return _onto_cache
 
 
 # ============================================================
@@ -85,6 +99,7 @@ def buscar_restricoes(estagio_id):
     Retorna:
         dict com limites por nutriente (mg/dia ou g/kg/dia)
     """
+    onto = _get_onto()
     estagio_ind = getattr(onto, estagio_id, None)
     restricoes = {
         "potassio_mg": None,
@@ -125,6 +140,7 @@ def buscar_alimentos():
     Retorna:
         list de dicts com dados de cada alimento
     """
+    onto = _get_onto()
     categorias = ['Fruta', 'Verdura', 'Leguminosa', 'Cereal', 'Proteina',
                   'Laticinio', 'Bebida', 'Industrializado', 'Tuberculo', 'Ovo']
     alimentos = []
@@ -134,6 +150,7 @@ def buscar_alimentos():
         if any(c in categorias for c in classes_nomes):
             alimentos.append({
                 "nome": ind.name,
+                "nome_exibicao": _formatar_nome(ind.name),
                 "categoria": next((c for c in classes_nomes if c in categorias), "?"),
                 "potassio": ind.potassioPor100g[0] if ind.potassioPor100g else 0,
                 "sodio": ind.sodioPor100g[0] if ind.sodioPor100g else 0,
@@ -144,25 +161,6 @@ def buscar_alimentos():
             })
 
     return alimentos
-
-
-# ============================================================
-# FUNÇÃO: BUSCAR RISCOS CLÍNICOS NA ONTOLOGIA
-# ============================================================
-def buscar_riscos_nutriente(nutriente_nome):
-    """
-    Consulta a ontologia para identificar o risco clínico
-    associado a um nutriente.
-
-    Retorna:
-        str com o nome do risco ou None
-    """
-    mapa_riscos = {
-        "Potassio": "hipercalemia",
-        "Sodio": "hipernatremia",
-        "Fosforo": "hiperfosfatemia"
-    }
-    return mapa_riscos.get(nutriente_nome, None)
 
 
 # ============================================================
@@ -194,16 +192,19 @@ def recommend(perfil):
             - alertas: alertas clínicos adicionais
     """
 
+    # 0. Validar entrada
+    perfil = _validar_perfil(perfil)
+
     # 1. Classificar estágio
     estagio = classificar_estagio(perfil["tfg"], perfil.get("em_dialise", False))
 
-    # 2. Buscar restrições na ontologia
+    # 2. Buscar restrições na ontologia (usadas para exibição)
     restricoes = buscar_restricoes(estagio["estagio"])
 
     # 3. Definir limiares de classificação por 100g
-    #    Baseados nas restrições do estágio + diretrizes KDIGO/KDOQI
+    #    Baseados no estágio + diretrizes KDIGO/KDOQI
     #    Proibido = risco imediato | Restrito = consumo limitado
-    limiares = _calcular_limiares(estagio["estagio"], restricoes, perfil)
+    limiares = _calcular_limiares(estagio["estagio"], perfil)
 
     # 4. Buscar alimentos da ontologia
     alimentos = buscar_alimentos()
@@ -277,6 +278,7 @@ def recommend(perfil):
 
         resultado = {
             "nome": a["nome"],
+            "nome_exibicao": a["nome_exibicao"],
             "categoria": a["categoria"],
             "status": status,
             "motivos": motivos,
@@ -314,64 +316,93 @@ def recommend(perfil):
 
 
 # ============================================================
+# TABELA DE LIMIARES POR ESTÁGIO (por 100g de alimento)
+# ============================================================
+# Limiares de classificação Restrito/Proibido conforme estágio da DRC
+# e diretrizes KDIGO/KDOQI. Estágios mais avançados = mais rigorosos.
+# None = nutriente não avaliado neste estágio.
+LIMIARES_POR_ESTAGIO = {
+    "G1": {  # estágio inicial: só sinaliza ultraprocessados ricos em sódio
+        "sodio_restrito": 600, "sodio_proibido": 1000,
+    },
+    "G2": {  # idêntico a G1
+        "sodio_restrito": 600, "sodio_proibido": 1000,
+    },
+    "G3a": {  # restrição de sódio ativa + fósforo
+        "sodio_restrito": 400, "sodio_proibido": 800,
+        "fosforo_restrito": 200, "fosforo_proibido": 400,
+    },
+    "G3b": {  # potássio, sódio e fósforo
+        "potassio_restrito": 200, "potassio_proibido": 350,
+        "sodio_restrito": 300, "sodio_proibido": 600,
+        "fosforo_restrito": 150, "fosforo_proibido": 300,
+    },
+    "G4": {  # restrições mais rigorosas
+        "potassio_restrito": 150, "potassio_proibido": 250,
+        "sodio_restrito": 200, "sodio_proibido": 500,
+        "fosforo_restrito": 100, "fosforo_proibido": 200,
+    },
+    "G5": {  # restrições máximas (diálise)
+        "potassio_restrito": 100, "potassio_proibido": 200,
+        "sodio_restrito": 150, "sodio_proibido": 400,
+        "fosforo_restrito": 80, "fosforo_proibido": 150,
+    },
+}
+
+# Chaves de limiares avaliadas pelo motor (todas começam None)
+_CHAVES_LIMIARES = (
+    "potassio_restrito", "potassio_proibido",
+    "sodio_restrito", "sodio_proibido",
+    "fosforo_restrito", "fosforo_proibido",
+)
+
+
+# ============================================================
 # FUNÇÕES AUXILIARES
 # ============================================================
-def _calcular_limiares(estagio, restricoes, perfil):
+def _validar_perfil(perfil):
+    """
+    Valida e normaliza o perfil do paciente, lançando ValueError com
+    mensagem clara quando os dados são inválidos.
+
+    Retorna uma cópia normalizada do perfil (tfg como float).
+    """
+    if not isinstance(perfil, dict):
+        raise ValueError("Perfil do paciente deve ser um dicionário.")
+    if "tfg" not in perfil or perfil["tfg"] in (None, ""):
+        raise ValueError("Campo obrigatório ausente: 'tfg' (Taxa de Filtração Glomerular).")
+    try:
+        tfg = float(perfil["tfg"])
+    except (TypeError, ValueError):
+        raise ValueError(f"TFG inválida: '{perfil['tfg']}'. Informe um número (mL/min/1,73m²).")
+    if tfg < 0:
+        raise ValueError("TFG não pode ser negativa.")
+
+    normalizado = dict(perfil)
+    normalizado["tfg"] = tfg
+    return normalizado
+
+
+def _formatar_nome(nome):
+    """
+    Converte o identificador camelCase da ontologia em um nome legível.
+
+    Ex.: "BananaPrata" -> "Banana Prata"; "FeijãoCarioca" -> "Feijão Carioca".
+    """
+    return re.sub(r'(?<=[a-zà-ú])(?=[A-ZÀ-Ú])', ' ', nome)
+
+
+def _calcular_limiares(estagio, perfil):
     """
     Calcula os limiares de classificação (restrito/proibido) por 100g
     de alimento, conforme o estágio da DRC e diretrizes KDIGO/KDOQI.
 
-    Estágios mais avançados = limiares mais rigorosos.
+    Lê os valores da tabela LIMIARES_POR_ESTAGIO e aplica o agravamento
+    por comorbidade (hipertensão intensifica a restrição de sódio).
     """
-    # Valores padrão: sem restrição (None = não avaliado)
-    limiares = {
-        "potassio_restrito": None,
-        "potassio_proibido": None,
-        "sodio_restrito": None,
-        "sodio_proibido": None,
-        "fosforo_restrito": None,
-        "fosforo_proibido": None,
-    }
-
-    if estagio in ["G1", "G2"]:
-        # Estágios iniciais: sem restrições rigorosas
-        # Apenas sinalizar ultraprocessados muito ricos em sódio
-        limiares["sodio_restrito"] = 600
-        limiares["sodio_proibido"] = 1000
-
-    elif estagio == "G3a":
-        # Restrição de sódio ativa
-        limiares["sodio_restrito"] = 400
-        limiares["sodio_proibido"] = 800
-        limiares["fosforo_restrito"] = 200
-        limiares["fosforo_proibido"] = 400
-
-    elif estagio == "G3b":
-        # Restrições de potássio, sódio e fósforo
-        limiares["potassio_restrito"] = 200
-        limiares["potassio_proibido"] = 350
-        limiares["sodio_restrito"] = 300
-        limiares["sodio_proibido"] = 600
-        limiares["fosforo_restrito"] = 150
-        limiares["fosforo_proibido"] = 300
-
-    elif estagio == "G4":
-        # Restrições mais rigorosas
-        limiares["potassio_restrito"] = 150
-        limiares["potassio_proibido"] = 250
-        limiares["sodio_restrito"] = 200
-        limiares["sodio_proibido"] = 500
-        limiares["fosforo_restrito"] = 100
-        limiares["fosforo_proibido"] = 200
-
-    elif estagio == "G5":
-        # Restrições máximas (diálise)
-        limiares["potassio_restrito"] = 100
-        limiares["potassio_proibido"] = 200
-        limiares["sodio_restrito"] = 150
-        limiares["sodio_proibido"] = 400
-        limiares["fosforo_restrito"] = 80
-        limiares["fosforo_proibido"] = 150
+    # Todos os nutrientes iniciam sem restrição (None = não avaliado)
+    limiares = {chave: None for chave in _CHAVES_LIMIARES}
+    limiares.update(LIMIARES_POR_ESTAGIO.get(estagio, {}))
 
     # Comorbidades intensificam restrições
     if perfil.get("hipertensao", False) and limiares["sodio_restrito"]:
@@ -528,7 +559,7 @@ if __name__ == "__main__":
     print("=" * 70)
     print("OntoDRC — TESTES DE RECOMENDAÇÃO (5 Estágios da DRC)")
     print("=" * 70)
-    print(f"Ontologia: {onto.base_iri}")
+    print(f"Ontologia: {_get_onto().base_iri}")
     print(f"Alimentos cadastrados: {len(buscar_alimentos())}")
     print(f"Perfis de teste: {len(perfis_teste)}")
 

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}OntoDRC — Acesso{% endblock %}
+{% block container_class %}narrow{% endblock %}
+
+{% block header %}
+<header class="header center">
+    <div class="brand">
+        <h1>OntoDRC</h1>
+        <p>Sistema de Recomendação Nutricional para Pacientes com Doença Renal Crônica</p>
+    </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Acesso restrito</h2>
+
+    <p style="font-size:0.9rem; color:#4a5568; margin-bottom:1.2rem;">
+        Este sistema trata dados de saúde, classificados como sensíveis pela LGPD.
+        Informe a senha de acesso para continuar.
+    </p>
+
+    <form method="POST" action="{{ url_for('login', next=request.args.get('next', '')) }}">
+        <div class="form-group">
+            <label for="senha">Senha de acesso</label>
+            <input type="password" id="senha" name="senha" autocomplete="current-password"
+                   autofocus required>
+        </div>
+        <button type="submit" class="btn">Entrar</button>
+    </form>
+
+    <div class="aviso">
+        <strong>Aviso importante</strong>
+        Ferramenta de apoio à decisão clínica. A avaliação final e a prescrição
+        dietética cabem exclusivamente ao nutricionista responsável.
+    </div>
+</div>
+{% endblock %}

@@ -1,229 +1,86 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OntoDRC — Recomendação Nutricional</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+{% extends "base.html" %}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f4f8;
-            color: #1a202c;
-            min-height: 100vh;
-        }
+{% block title %}OntoDRC — Recomendação Nutricional{% endblock %}
+{% block container_class %}narrow{% endblock %}
 
-        .header {
-            background: linear-gradient(135deg, #1a365d 0%, #2c5282 100%);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .header h1 { font-size: 1.6rem; margin-bottom: 0.3rem; }
-        .header p { font-size: 0.9rem; opacity: 0.85; }
-
-        .container {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .card h2 {
-            font-size: 1.2rem;
-            color: #2c5282;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #e2e8f0;
-        }
-
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: #4a5568;
-            margin-bottom: 0.3rem;
-        }
-
-        .form-group small {
-            color: #a0aec0;
-            font-size: 0.78rem;
-        }
-
-        .form-group input[type="text"],
-        .form-group input[type="number"] {
-            width: 100%;
-            padding: 0.7rem;
-            border: 1px solid #cbd5e0;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.2s;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #3182ce;
-            box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 0.3rem;
-        }
-
-        .radio-group label {
-            font-weight: normal;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            cursor: pointer;
-        }
-
-        .radio-group input[type="radio"] {
-            accent-color: #3182ce;
-        }
-
-        .row {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .row .form-group { flex: 1; }
-
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 0.9rem;
-            background: #2c5282;
-            color: white;
-            font-size: 1.05rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            margin-top: 1rem;
-            transition: background 0.2s;
-        }
-
-        .btn:hover { background: #1a365d; }
-
-        .aviso {
-            background: #fffbeb;
-            border-left: 4px solid #d69e2e;
-            padding: 0.8rem 1rem;
-            border-radius: 0 8px 8px 0;
-            margin-top: 1.5rem;
-            font-size: 0.85rem;
-            color: #744210;
-        }
-
-        .aviso strong { display: block; margin-bottom: 0.2rem; }
-
-        .erro {
-            background: #fff5f5;
-            border-left: 4px solid #e53e3e;
-            padding: 0.8rem 1rem;
-            border-radius: 0 8px 8px 0;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: #9b2c2c;
-        }
-
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.8rem;
-            color: #a0aec0;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
+{% block header %}
+<header class="header">
+    <div class="brand">
         <h1>OntoDRC</h1>
-        <p>Sistema de Recomendação Nutricional para Pacientes com Doença Renal Crônica</p>
+        <p>Recomendação Nutricional para Doença Renal Crônica</p>
     </div>
+    <div class="header-actions">
+        <a href="{{ url_for('logout') }}">Sair</a>
+    </div>
+</header>
+{% endblock %}
 
-    <div class="container">
-        {% if erro %}
-        <div class="erro">Erro ao processar: {{ erro }}</div>
-        {% endif %}
+{% block content %}
+{% if erro %}
+<div class="erro" role="alert">Erro ao processar: {{ erro }}</div>
+{% endif %}
 
-        <div class="card">
-            <h2>Dados do Paciente</h2>
+<div class="card">
+    <h2>Dados do Paciente</h2>
 
-            <form method="POST" action="/recomendar">
+    <form method="POST" action="{{ url_for('recomendar') }}">
 
-                <div class="form-group">
-                    <label for="nome">Identificador do paciente</label>
-                    <input type="text" id="nome" name="nome" placeholder="Ex: Paciente 01" required>
-                </div>
+        <div class="form-group">
+            <label for="nome">Identificador do paciente</label>
+            <input type="text" id="nome" name="nome" placeholder="Ex: Paciente 01" required>
+        </div>
 
-                <div class="row">
-                    <div class="form-group">
-                        <label for="idade">Idade (anos)</label>
-                        <input type="number" id="idade" name="idade" min="1" max="120" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="peso">Peso (kg)</label>
-                        <input type="number" id="peso" name="peso" step="0.1" min="20" max="300" required>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="tfg">Taxa de Filtração Glomerular (TFG)</label>
-                    <small>mL/min/1,73m² — principal indicador da função renal</small>
-                    <input type="number" id="tfg" name="tfg" step="0.1" min="0" max="200" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Em diálise?</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="em_dialise" value="nao" checked> Não</label>
-                        <label><input type="radio" name="em_dialise" value="sim"> Sim</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Diabetes?</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="diabetes" value="nao" checked> Não</label>
-                        <label><input type="radio" name="diabetes" value="sim"> Sim</label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Hipertensão?</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="hipertensao" value="nao" checked> Não</label>
-                        <label><input type="radio" name="hipertensao" value="sim"> Sim</label>
-                    </div>
-                </div>
-
-                <button type="submit" class="btn">Gerar Recomendações</button>
-            </form>
-
-            <div class="aviso">
-                <strong>Aviso importante</strong>
-                Este sistema é uma ferramenta de apoio à decisão clínica. A avaliação final e a prescrição dietética cabem exclusivamente ao nutricionista responsável.
+        <div class="row">
+            <div class="form-group">
+                <label for="idade">Idade (anos)</label>
+                <input type="number" id="idade" name="idade" min="1" max="120"
+                       placeholder="Ex: 62" required>
+            </div>
+            <div class="form-group">
+                <label for="peso">Peso (kg)</label>
+                <input type="number" id="peso" name="peso" step="0.1" min="20" max="300"
+                       placeholder="Ex: 75" required>
             </div>
         </div>
-    </div>
 
-    <div class="footer">
-        OntoDRC — TCC Guilherme Bessa — UnB/FCTE — 2026
+        <div class="form-group">
+            <label for="tfg">Taxa de Filtração Glomerular (TFG)</label>
+            <small>mL/min/1,73m² — principal indicador da função renal</small>
+            <input type="number" id="tfg" name="tfg" step="0.1" min="0" max="200"
+                   placeholder="Ex: 35 (G3b)" required>
+        </div>
+
+        <fieldset class="form-group" style="border:none;">
+            <legend style="font-weight:600; font-size:0.9rem; color:#4a5568; margin-bottom:0.3rem; padding:0;">Em diálise?</legend>
+            <div class="radio-group">
+                <label><input type="radio" name="em_dialise" value="nao" checked> Não</label>
+                <label><input type="radio" name="em_dialise" value="sim"> Sim</label>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group" style="border:none;">
+            <legend style="font-weight:600; font-size:0.9rem; color:#4a5568; margin-bottom:0.3rem; padding:0;">Diabetes?</legend>
+            <div class="radio-group">
+                <label><input type="radio" name="diabetes" value="nao" checked> Não</label>
+                <label><input type="radio" name="diabetes" value="sim"> Sim</label>
+            </div>
+        </fieldset>
+
+        <fieldset class="form-group" style="border:none;">
+            <legend style="font-weight:600; font-size:0.9rem; color:#4a5568; margin-bottom:0.3rem; padding:0;">Hipertensão?</legend>
+            <div class="radio-group">
+                <label><input type="radio" name="hipertensao" value="nao" checked> Não</label>
+                <label><input type="radio" name="hipertensao" value="sim"> Sim</label>
+            </div>
+        </fieldset>
+
+        <button type="submit" class="btn">Gerar Recomendações</button>
+    </form>
+
+    <div class="aviso">
+        <strong>Aviso importante</strong>
+        Este sistema é uma ferramenta de apoio à decisão clínica. A avaliação final e a
+        prescrição dietética cabem exclusivamente ao nutricionista responsável.
     </div>
-</body>
-</html>
+</div>
+{% endblock %}

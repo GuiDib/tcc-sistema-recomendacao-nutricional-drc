@@ -28,9 +28,23 @@ python app.py
 # Acesse http://localhost:5000
 ```
 
-### Testes formais
+O acesso é protegido por senha (os dados de saúde são sensíveis pela LGPD).
+A senha padrão é `ontodrc2026`. Em produção, configure via variáveis de ambiente:
+
+```bash
+export ONTODRC_SENHA="sua-senha"
+export ONTODRC_SECRET_KEY="chave-aleatoria-para-a-sessao"
+python app.py
+```
+
+### Testes formais (TRAN + 20 casos)
 ```bash
 python testes_formais.py
+```
+
+### Testes unitários (pytest)
+```bash
+pytest -v
 ```
 
 ## Tecnologias

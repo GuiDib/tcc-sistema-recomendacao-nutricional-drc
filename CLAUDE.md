@@ -32,11 +32,16 @@ tcc-sistema-recomendacao-nutricional-drc/
 ├── motor_recomendacao.py      ← Módulo principal: recommend(perfil)
 ├── expandir_ontologia.py      ← Script para expandir de 25→52 alimentos
 ├── testes_formais.py          ← 20 casos de teste + TRAN + métricas
+├── test_motor.py              ← Testes unitários (pytest)
 ├── ontologia_nutricional_renal_v2.owl  ← 25 alimentos (base)
 ├── ontologia_nutricional_renal_v3.owl  ← 52 alimentos (atual)
 ├── templates/
+│   ├── base.html              ← Layout base (Jinja) compartilhado
+│   ├── login.html             ← Tela de login (senha única)
 │   ├── index.html             ← Formulário do paciente
 │   └── resultado.html         ← Tela de recomendações
+├── static/
+│   └── style.css              ← Estilos compartilhados
 ├── docs/
 │   └── cronograma_tcc.pdf     ← Cronograma de 14 semanas
 └── latex/
@@ -180,13 +185,18 @@ source venv/bin/activate
 pip install -r requirements.txt
 python app.py
 # Acesse http://localhost:5000
+# Acesso protegido por senha única (padrão: ontodrc2026).
+# Configurável via env: ONTODRC_SENHA e ONTODRC_SECRET_KEY.
 ```
 
 ## Comandos úteis
 
 ```bash
-# Rodar testes formais
+# Rodar testes formais (TRAN + 20 casos)
 python testes_formais.py
+
+# Rodar testes unitários (pytest)
+pytest -v
 
 # Expandir ontologia (v2 → v3)
 python expandir_ontologia.py

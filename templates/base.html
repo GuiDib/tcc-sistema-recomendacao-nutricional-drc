@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}OntoDRC{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    {% block header %}{% endblock %}
+
+    <main class="container {% block container_class %}{% endblock %}">
+        {% with mensagens = get_flashed_messages() %}
+            {% if mensagens %}
+                {% for m in mensagens %}
+                <div class="flash" role="status">{{ m }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        OntoDRC — TCC Guilherme Bessa — UnB/FCTE — 2026
+    </footer>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
