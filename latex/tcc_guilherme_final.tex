@@ -209,7 +209,7 @@ As regras de classificação consideram os seguintes critérios principais, base
 
     \subsection{Saída: Recomendações e Alertas Clínicos}
 
-O sistema gera dois tipos de saída. O primeiro é a \textbf{lista de recomendações}, que apresenta os alimentos avaliados com sua classificação (Permitido, Restrito ou Proibido) e a justificativa semântica correspondente --- por exemplo: ``Banana classificada como \textit{restrita}: potássio de 358~mg/100g excede o limite de 200~mg/porção para estágio G3b; risco associado: hipercalemia''. O segundo tipo é o \textbf{alerta clínico}, emitido automaticamente quando um alimento apresenta risco elevado em mais de um nutriente simultaneamente ou quando o perfil do paciente inclui comorbidades que intensificam o risco.
+O sistema gera dois tipos de saída. O primeiro é a \textbf{lista de recomendações}, que apresenta os alimentos avaliados com sua classificação (Permitido, Restrito ou Proibido) e a justificativa semântica correspondente --- por exemplo: ``Banana classificada como \textit{proibida}: potássio de 358~mg/100g excede o limite de 350~mg/100g para estágio G3b; risco associado: hipercalemia''. O segundo tipo é o \textbf{alerta clínico}, emitido automaticamente quando um alimento apresenta risco elevado em mais de um nutriente simultaneamente ou quando o perfil do paciente inclui comorbidades que intensificam o risco.
 
 Todas as recomendações são acompanhadas de uma nota reforçando que a decisão final cabe ao nutricionista responsável, e que o sistema atua exclusivamente como ferramenta de apoio à decisão clínica.
 
@@ -261,17 +261,17 @@ A Tabela~\ref{tab:resultados_estagio} apresenta a distribuição dos alimentos p
 \hline
 \textbf{Estágio} & \textbf{Permit.} & \textbf{Restr.} & \textbf{Proib.} \\
 \hline
-G1 (TFG $\geq$ 90)  & 49 & 1  & 2  \\
+G1 (TFG $\geq$ 90)  & 46 & 2  & 4  \\
 \hline
-G2 (TFG 60--89)      & 49 & 1  & 2  \\
+G2 (TFG 60--89)      & 46 & 2  & 4  \\
 \hline
-G3a (TFG 45--59)     & 39 & 6  & 7  \\
+G3a (TFG 45--59)     & 39 & 8  & 5  \\
 \hline
-G3b (TFG 30--44)     & 18 & 15 & 19 \\
+G3b (TFG 30--44)     & 18 & 17 & 17 \\
 \hline
-G4 (TFG 15--29)      & 10 & 13 & 29 \\
+G4 (TFG 15--29)      & 12 & 13 & 27 \\
 \hline
-G5 (TFG $<$ 15)      & 4  & 8  & 40 \\
+G5 (TFG $<$ 15)      & 6  & 13 & 33 \\
 \hline
 \end{tabular}
 \end{table}
@@ -340,7 +340,7 @@ O sistema apresenta limitações que devem ser consideradas. A base de 52 alimen
 
 Os resultados obtidos neste trabalho demonstram que a integração entre ontologias e técnicas de Inteligência Artificial constitui uma abordagem viável e eficaz para a geração de recomendações nutricionais personalizadas e clinicamente seguras para pacientes com Doença Renal Crônica. O protótipo desenvolvido --- fundamentado nas ontologias validadas ONS e CKDO e alimentado por dados da tabela TACO --- alcançou Taxa de Rejeição de Alimentos Nocivos de 100\% e acurácia de 100\% nos 20 casos de teste formais, sem registrar falsos negativos, o que indica que o sistema não permitiu o consumo de alimentos que representassem risco clínico ao paciente em nenhum dos cenários avaliados.
 
-A arquitetura orientada a conhecimento demonstrou capacidade de gerar recomendações explicáveis, rastreáveis e aderentes às diretrizes KDIGO/KDOQI. A progressão das restrições de G1 a G5 --- de 49 alimentos permitidos no estágio inicial para apenas 4 no estágio de diálise --- confirma que o sistema responde adequadamente à gravidade da doença. A inclusão de justificativas semânticas em cada classificação diferencia o OntoDRC de abordagens baseadas exclusivamente em aprendizado de máquina, que frequentemente operam sem transparência no processo decisório.
+A arquitetura orientada a conhecimento demonstrou capacidade de gerar recomendações explicáveis, rastreáveis e aderentes às diretrizes KDIGO/KDOQI. A progressão das restrições de G1 a G5 --- de 46 alimentos permitidos no estágio inicial para apenas 6 no estágio de diálise --- confirma que o sistema responde adequadamente à gravidade da doença. A inclusão de justificativas semânticas em cada classificação diferencia o OntoDRC de abordagens baseadas exclusivamente em aprendizado de máquina, que frequentemente operam sem transparência no processo decisório.
 
 No âmbito social, o projeto contribui para a redução da dependência de conteúdos inadequados encontrados na internet, oferecendo uma ferramenta de apoio seguro e estruturado voltada a pacientes atendidos pelo SUS, sem substituir a avaliação do nutricionista. Todo o desenvolvimento foi guiado pelos princípios da LGPD, assegurando anonimização, segurança da informação e governança ética no tratamento de dados sensíveis \cite{brasil2018}.
 
