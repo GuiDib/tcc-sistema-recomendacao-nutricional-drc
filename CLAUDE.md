@@ -45,7 +45,7 @@ tcc-sistema-recomendacao-nutricional-drc/
 ├── docs/
 │   └── cronograma_tcc.pdf     ← Cronograma de 14 semanas
 └── latex/
-    └── tcc_guilherme.tex      ← Artigo LaTeX (versão mais recente)
+    └── tcc_guilherme_final.tex ← Artigo LaTeX (versão final)
 ```
 
 ## Arquitetura do sistema

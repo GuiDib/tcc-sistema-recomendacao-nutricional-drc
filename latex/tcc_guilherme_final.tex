@@ -117,6 +117,10 @@ Os procedimentos adotados envolveram inicialmente uma revisão bibliográfica si
 
 Por lidar com dados relacionados à saúde --- classificados como sensíveis pela LGPD (art. 5º, II) ---, o sistema deve seguir rigorosamente a Lei n.º 13.709/2018 \cite{brasil2018}. Conforme Botelho e Camargo (2021), o tratamento de dados de saúde em ambientes digitais exige consentimento qualificado, anonimização e mecanismos de segurança que impeçam a reidentificação do titular \cite{botelho2021}. Todos os dados utilizados neste protótipo são tratados de forma anonimizada, garantindo privacidade e impossibilitando a identificação direta do usuário. Além disso, o sistema atua apenas como ferramenta de apoio, não substituindo a avaliação profissional. A responsabilidade clínica permanece com nutricionistas e demais especialistas, assegurando validade ética e jurídica quanto às recomendações fornecidas.
 
+    \subsection{Ferramentas de Inteligência Artificial Assistiva}
+
+Em conformidade com princípios de transparência e integridade acadêmica, registra-se que ferramentas de Inteligência Artificial generativa foram utilizadas como apoio em etapas instrumentais deste trabalho. O assistente Claude, desenvolvido pela Anthropic \cite{anthropic2026}, foi empregado no desenvolvimento e na refatoração do código-fonte do protótipo --- incluindo a organização do motor de inferência, a implementação da interface web em Flask e a elaboração de testes automatizados ---, bem como na revisão gramatical e ortográfica do texto deste artigo \cite{anthropic2026}. Em todos os casos, a concepção científica, as decisões de modelagem, a definição das regras clínicas baseadas nas diretrizes KDIGO/KDOQI e a validação dos resultados permaneceram sob responsabilidade integral do autor, cabendo às ferramentas de IA um papel estritamente auxiliar e supervisionado.
+
     \subsection{Métricas de Avaliação}
 
 A avaliação do protótipo considera critérios de precisão e segurança das recomendações. Em particular, erros relacionados à sugestão de alimentos potencialmente perigosos para pacientes renais são tratados como criticidade máxima. Por essa razão, a métrica principal adotada é a \textbf{Taxa de Rejeição de Alimentos Nocivos (TRAN)}, definida como a proporção de alimentos clinicamente contraindicados que o sistema identifica e classifica corretamente como restritos ou proibidos. A escolha da TRAN como métrica central justifica-se pelo fato de que, em sistemas de recomendação aplicados à saúde, a consequência de um falso negativo (não rejeitar um alimento nocivo) é clinicamente mais grave do que a de um falso positivo (restringir desnecessariamente um alimento seguro) \cite{mckensy2022}. Também são analisados a \textbf{consistência das regras} aplicadas pelo raciocinador HermiT --- verificando se a ontologia permanece livre de contradições lógicas ---, a \textbf{aderência às diretrizes KDIGO/KDOQI} e a \textbf{clareza das justificativas semânticas} fornecidas pelo sistema, garantindo transparência e rastreabilidade no processo de recomendação.
@@ -411,6 +415,9 @@ Como trabalhos futuros, propõe-se a ampliação da base alimentar com alimentos
 
     \bibitem{kdigo2024}
     KIDNEY DISEASE: IMPROVING GLOBAL OUTCOMES (KDIGO). KDIGO 2024 Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease. \textit{Kidney International}, v. 105, n. 4S, p. S117--S314, 2024.
+
+    \bibitem{anthropic2026}
+    ANTHROPIC. \textit{Claude} (Opus 4.8) [modelo de linguagem de grande escala]. São Francisco: Anthropic, 2026. Utilizado como ferramenta assistiva para desenvolvimento e refatoração de código-fonte e para revisão gramatical do texto. Disponível em: \url{https://claude.ai}. Acesso em: 22 jun. 2026.
 
 \end{thebibliography}
 \end{document}
