@@ -2,7 +2,20 @@
 % --- PACOTES ---
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage{lmodern}
 \usepackage[brazil]{babel}
+% Garante a renderização do "g com breve" (ğ/Ğ) de nomes turcos (ex.: Göğebakan),
+% ausente nas fontes T1 padrão.
+\usepackage{textcomp}
+\usepackage{newunicodechar}
+\newunicodechar{ğ}{\u{g}}
+\newunicodechar{Ğ}{\u{G}}
+% Ordinais (º/ª) renderizavam como glifos errados sob T1; força superscrito ABNT.
+\newunicodechar{º}{\textsuperscript{o}}
+\newunicodechar{ª}{\textsuperscript{a}}
+\usepackage{microtype}
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{cite}
@@ -84,7 +97,7 @@ A ingestão proteica exemplifica essa complexidade: nos estágios G3 a G5 sem di
 
     \subsection{Sistemas de Recomendação}
 
-Sistemas de Recomendação (SR) são técnicas computacionais utilizadas para sugerir itens, informações ou ações relevantes a um usuário com base em dados disponíveis ou conhecimento previamente estruturado. Segundo Aggarwal (2016), esses sistemas podem ser classificados em três principais abordagens: a Filtragem Colaborativa, que identifica padrões de preferência entre grupos de usuários; a Filtragem Baseada em Conteúdo, que utiliza características dos itens para gerar recomendações; e os Modelos Híbridos, que combinam múltiplas técnicas para aumentar a precisão \cite{aggarwal}.
+Sistemas de Recomendação (SR) são técnicas computacionais utilizadas para sugerir itens, informações ou ações relevantes a um usuário com base em dados disponíveis ou conhecimento previamente estruturado. Segundo Aggarwal (2016), esses sistemas podem ser classificados em três principais abordagens: a Filtragem Colaborativa, que identifica padrões de preferência entre grupos de usuários; a Filtragem Baseada em Conteúdo, que utiliza características dos itens para gerar recomendações; e os Modelos Híbridos, que combinam múltiplas técnicas para aumentar a precisão \cite{aggarwal}. Além dessas abordagens clássicas, a literatura contempla desenhos especializados, como os sistemas de recomendação para grupos, voltados a contextos em que a decisão envolve múltiplos usuários simultaneamente \cite{felfernig}.
 
 No contexto da saúde --- especialmente em aplicações nutricionais para pacientes com Doença Renal Crônica --- modelos exclusivamente colaborativos ou baseados em popularidade são insuficientes, pois não conseguem avaliar as individualidades de cada paciente, suas realidades socioeconômicas e demais variáveis que devem ser consideradas para tratamentos acessíveis e eficientes.
 
@@ -132,6 +145,7 @@ A arquitetura proposta segue uma abordagem orientada a conhecimento, na qual uma
 
 \begin{figure*}[t]
 \centering
+\resizebox{\textwidth}{!}{%
 \begin{tikzpicture}[
     node distance=1.2cm and 1.8cm,
     entrada/.style={rectangle, rounded corners, draw=black!70, fill=blue!10,
@@ -164,7 +178,8 @@ A arquitetura proposta segue uma abordagem orientada a conhecimento, na qual uma
 \draw[seta] (motor) -- node[right, rotulo] {filtragem} (saida);
 \draw[seta] (motor) -| node[above, rotulo, pos=0.3] {riscos} (alerta);
 \draw[seta] (saida) -- node[above, rotulo] {apoio} (nutri);
-\end{tikzpicture}
+\end{tikzpicture}%
+}
 \caption{Arquitetura do Sistema de Recomendação Nutricional baseado em ontologias.}
 \label{fig:arquitetura}
 \end{figure*}
@@ -226,7 +241,8 @@ A Tabela~\ref{tab:tecnologias} resume o \textit{stack} tecnológico adotado no d
 \caption{Tecnologias e ferramentas do protótipo}
 \label{tab:tecnologias}
 \footnotesize
-\begin{tabular}{|p{1.8cm}|p{2.5cm}|p{2.2cm}|}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|L{2.4cm}|L{2.1cm}|L{2.5cm}|}
 \hline
 \textbf{Componente} & \textbf{Tecnologia} & \textbf{Função} \\
 \hline
